@@ -1,0 +1,62 @@
+query GetStations($ids: [String]) {
+    stations(ids: $ids) {
+    name
+    stops {
+      gtfsId
+      name
+      code
+      platformCode
+    }
+  }    
+}
+
+query getStops {
+    stops {
+        gtfsId
+        name
+        lat
+        lon
+        zoneId
+    }
+}
+
+query GetStopById($stopId: String!) {
+  stop(id: $stopId) {
+    name
+    gtfsId
+    lat
+    lon
+    stoptimesWithoutPatterns {
+      scheduledArrival
+      realtimeArrival
+      arrivalDelay
+      scheduledDeparture
+      realtimeDeparture
+      departureDelay
+      realtime
+      realtimeState
+      serviceDay
+      headsign
+    }
+  }
+}
+
+query GetStopsByRadius($lat: Float!, $lon: Float!, $radius: Int!, $first: Int) {
+    stopsByRadius(lat: $lat, lon: $lon, radius: $radius, first: $first) {
+    edges {
+      node {
+        stop {
+          gtfsId
+          name
+          lat
+          lon
+        }
+        distance
+      }
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
