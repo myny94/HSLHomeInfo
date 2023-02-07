@@ -1473,7 +1473,7 @@ export type GetStopsByRadiusQueryVariables = Exact<{
 }>;
 
 
-export type GetStopsByRadiusQuery = { __typename?: 'QueryType', stopsByRadius?: { __typename?: 'stopAtDistanceConnection', edges?: Array<{ __typename?: 'stopAtDistanceEdge', node?: { __typename?: 'stopAtDistance', distance?: number | null, stop?: { __typename?: 'Stop', gtfsId: string, name: string, lat?: number | null, lon?: number | null } | null } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetStopsByRadiusQuery = { __typename?: 'QueryType', stopsByRadius?: { __typename?: 'stopAtDistanceConnection', edges?: Array<{ __typename?: 'stopAtDistanceEdge', node?: { __typename?: 'stopAtDistance', distance?: number | null, stop?: { __typename?: 'Stop', gtfsId: string, name: string, lat?: number | null, lon?: number | null, stoptimesWithoutPatterns?: Array<{ __typename?: 'Stoptime', scheduledArrival?: number | null, realtimeArrival?: number | null, arrivalDelay?: number | null, scheduledDeparture?: number | null, realtimeDeparture?: number | null, departureDelay?: number | null, realtime?: boolean | null, realtimeState?: RealtimeState | null, serviceDay?: any | null, headsign?: string | null } | null> | null } | null } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
 
 export const GetStationsDocument = gql`
@@ -1615,6 +1615,18 @@ export const GetStopsByRadiusDocument = gql`
           name
           lat
           lon
+          stoptimesWithoutPatterns {
+            scheduledArrival
+            realtimeArrival
+            arrivalDelay
+            scheduledDeparture
+            realtimeDeparture
+            departureDelay
+            realtime
+            realtimeState
+            serviceDay
+            headsign
+          }
         }
         distance
       }

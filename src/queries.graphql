@@ -1,5 +1,5 @@
 query GetStations($ids: [String]) {
-    stations(ids: $ids) {
+  stations(ids: $ids) {
     name
     stops {
       gtfsId
@@ -7,17 +7,17 @@ query GetStations($ids: [String]) {
       code
       platformCode
     }
-  }    
+  }
 }
 
 query getStops {
-    stops {
-        gtfsId
-        name
-        lat
-        lon
-        zoneId
-    }
+  stops {
+    gtfsId
+    name
+    lat
+    lon
+    zoneId
+  }
 }
 
 query GetStopById($stopId: String!) {
@@ -42,7 +42,7 @@ query GetStopById($stopId: String!) {
 }
 
 query GetStopsByRadius($lat: Float!, $lon: Float!, $radius: Int!, $first: Int) {
-    stopsByRadius(lat: $lat, lon: $lon, radius: $radius, first: $first) {
+  stopsByRadius(lat: $lat, lon: $lon, radius: $radius, first: $first) {
     edges {
       node {
         stop {
@@ -50,6 +50,18 @@ query GetStopsByRadius($lat: Float!, $lon: Float!, $radius: Int!, $first: Int) {
           name
           lat
           lon
+          stoptimesWithoutPatterns {
+            scheduledArrival
+            realtimeArrival
+            arrivalDelay
+            scheduledDeparture
+            realtimeDeparture
+            departureDelay
+            realtime
+            realtimeState
+            serviceDay
+            headsign
+          }
         }
         distance
       }

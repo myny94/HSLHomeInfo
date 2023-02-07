@@ -23,4 +23,16 @@ export const timeConverter = (UNIX_timestamp: number) => {
   var time =
     date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
   return time;
-}
+};
+
+export const RemainingTimeConverter = (UNIX_timestamp: number) => {
+  var currentTime = Math.floor(Date.now() / 1000);
+  var TimeDiff = UNIX_timestamp - currentTime;
+  var sec = TimeDiff % 60;
+  TimeDiff = Math.floor(TimeDiff / 60);
+  var min = TimeDiff % 60;
+  TimeDiff = Math.floor(TimeDiff / 60);
+  var hour = TimeDiff % 24;
+  var time = (hour>0)? `${hour} hours ${min} minutes` :`${min} minutes`;
+  return time;
+};
