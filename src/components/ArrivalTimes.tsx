@@ -11,7 +11,7 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
     props.arrivalQuery.stopsByRadius?.edges?.flatMap(
       (stopData) => stopData?.node?.stop?.stoptimesWithoutPatterns ?? []
     ) ?? [];
-  const sortedArrivals = arrivals.sort(
+  const sortedArrivals = [...arrivals].sort(
     (a, b) => a?.scheduledArrival! >= b?.scheduledArrival! ? 1:-1
   );
 
@@ -25,8 +25,8 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
         </tr>
       </thead>
       <tbody>
-        {sortedArrivals.map((arrivalData) => (
-          <tr>
+        {sortedArrivals.map((arrivalData, index) => (
+          <tr key={`${index}-${arrivalData?.scheduledArrival}`}>
             <td><img src="/images/busIcon.svg" alt="React Logo" width={20} height={20} />{arrivalData?.headsign}</td>
             <td>
               {timeConverter(
