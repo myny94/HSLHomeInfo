@@ -33,6 +33,6 @@ export const RemainingTimeConverter = (UNIX_timestamp: number) => {
   var min = TimeDiff % 60;
   TimeDiff = Math.floor(TimeDiff / 60);
   var hour = TimeDiff % 24;
-  var time = (hour>0)? `${hour} hours ${min} minutes` :`${min} minutes`;
+  var time = (hour>0)? `${hour} hours ${min} minutes` : (min>0) ?`${min} minutes`: `passed ${Math.abs(min)} minutes ago`;
   return time;
 };
