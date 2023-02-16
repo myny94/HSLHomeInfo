@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import StopByRadius from "./components/StopByRadius";
 import {
   useGetStopByIdQuery,
   useGetStopsByRadiusQuery,
 } from "./generated/graphql";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button } from "react-bootstrap";
+import ArrivalTimeDisplay from "./components/ArrivalTimes";
+import LocationAutocomplete from "./components/LocationAutocomplete";
 
 function App() {
   const [stopId, setStopId] = useState<string>("HSL:4200210");
@@ -22,6 +23,7 @@ function App() {
       lon: longitude,
       radius: 1000,
     },
+    pollInterval: 60000,
   });
 
   // on mount
@@ -52,6 +54,7 @@ function App() {
     <div>
       <h3>HSL real time</h3>
       <h4>{status}</h4>
+      <LocationAutocomplete />
       <Button variant="secondary sm" onClick={getCurrentUserLocation}>Set location again</Button>
       {stopLoading ? (
         <p>Loading ...</p>
@@ -60,7 +63,7 @@ function App() {
         stopsData && (
           <div>
             Stops near my location:
-            <StopByRadius stopsQuery={stopsData} />
+            <ArrivalTimeDisplay arrivalQuery={stopsData} />
           </div>
         )
       )}
