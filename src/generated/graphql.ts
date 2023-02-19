@@ -1473,7 +1473,7 @@ export type GetStopsByRadiusQueryVariables = Exact<{
 }>;
 
 
-export type GetStopsByRadiusQuery = { __typename?: 'QueryType', stopsByRadius?: { __typename?: 'stopAtDistanceConnection', edges?: Array<{ __typename?: 'stopAtDistanceEdge', node?: { __typename?: 'stopAtDistance', distance?: number | null, stop?: { __typename?: 'Stop', stoptimesWithoutPatterns?: Array<{ __typename?: 'Stoptime', scheduledArrival?: number | null, realtimeArrival?: number | null, arrivalDelay?: number | null, scheduledDeparture?: number | null, realtimeDeparture?: number | null, departureDelay?: number | null, realtime?: boolean | null, realtimeState?: RealtimeState | null, serviceDay?: any | null, headsign?: string | null, stop?: { __typename?: 'Stop', id: string, gtfsId: string, name: string, lat?: number | null, lon?: number | null, alerts?: Array<{ __typename?: 'Alert', id: string, alertHeaderText?: string | null, alertUrl?: string | null } | null> | null } | null } | null> | null } | null } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
+export type GetStopsByRadiusQuery = { __typename?: 'QueryType', stopsByRadius?: { __typename?: 'stopAtDistanceConnection', edges?: Array<{ __typename?: 'stopAtDistanceEdge', node?: { __typename?: 'stopAtDistance', distance?: number | null, stop?: { __typename?: 'Stop', stoptimesWithoutPatterns?: Array<{ __typename?: 'Stoptime', scheduledArrival?: number | null, scheduledDeparture?: number | null, serviceDay?: any | null, headsign?: string | null, stop?: { __typename?: 'Stop', id: string, gtfsId: string, name: string, lat?: number | null, lon?: number | null, zoneId?: string | null, alerts?: Array<{ __typename?: 'Alert', id: string, alertHeaderText?: string | null, alertUrl?: string | null } | null> | null } | null, trip?: { __typename?: 'Trip', id: string, bikesAllowed?: BikesAllowed | null, wheelchairAccessible?: WheelchairBoarding | null, tripShortName?: string | null, route: { __typename?: 'Route', id: string, shortName?: string | null, mode?: Mode | null } } | null } | null> | null } | null } | null } | null> | null, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, endCursor?: string | null } } | null };
 
 
 export const GetStationsDocument = gql`
@@ -1618,20 +1618,26 @@ export const GetStopsByRadiusDocument = gql`
               name
               lat
               lon
+              zoneId
               alerts {
                 id
                 alertHeaderText
                 alertUrl
               }
             }
+            trip {
+              id
+              bikesAllowed
+              wheelchairAccessible
+              route {
+                id
+                shortName
+                mode
+              }
+              tripShortName
+            }
             scheduledArrival
-            realtimeArrival
-            arrivalDelay
             scheduledDeparture
-            realtimeDeparture
-            departureDelay
-            realtime
-            realtimeState
             serviceDay
             headsign
           }

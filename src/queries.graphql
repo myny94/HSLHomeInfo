@@ -53,20 +53,26 @@ query GetStopsByRadius($lat: Float!, $lon: Float!, $radius: Int!, $first: Int) {
               name
               lat
               lon
+              zoneId
               alerts {
                 id
                 alertHeaderText
                 alertUrl
               }
             }
+            trip {
+              id
+              bikesAllowed
+              wheelchairAccessible
+              route {
+                id
+                shortName
+                mode
+              }
+              tripShortName
+            }
             scheduledArrival
-            realtimeArrival
-            arrivalDelay
             scheduledDeparture
-            realtimeDeparture
-            departureDelay
-            realtime
-            realtimeState
             serviceDay
             headsign
           }

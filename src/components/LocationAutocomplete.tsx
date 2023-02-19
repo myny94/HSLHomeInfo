@@ -48,7 +48,7 @@ function LocationAutocomplete(props: LocationProps) {
 
   useEffect(() => {
     let cancelled = false;
-    if (debouncedVal.length != 0) {
+    if (debouncedVal.length !== 0) {
       fetch(
         `${url}?` +
           new URLSearchParams({
@@ -89,7 +89,7 @@ function LocationAutocomplete(props: LocationProps) {
   };
 
   return (
-    <div className="mb-3">
+    <div>
       <Select
         onChange={(e) => handleSelectionChange(e)}
         onInputChange={(e) => setSearchTerm(e)}
