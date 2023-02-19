@@ -61,11 +61,8 @@ query GetStopsByRadius($lat: Float!, $lon: Float!, $radius: Int!, $first: Int) {
               }
             }
             trip {
-              id
-              bikesAllowed
-              wheelchairAccessible
               route {
-                id
+                longName
                 shortName
                 mode
               }

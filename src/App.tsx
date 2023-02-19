@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import {
   useGetStopByIdQuery,
@@ -13,8 +13,7 @@ import Form from "react-bootstrap/Form";
 import WarningIcon from "@mui/icons-material/Warning";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
-import { Dropdown, DropdownButton } from "react-bootstrap";
-import { DropdownItemProps } from "react-bootstrap/esm/DropdownItem";
+import { Dropdown } from "react-bootstrap";
 
 const DEFAULT_LATITUDE = 60.1705011;
 const DEFAULT_LONGITUDE = 24.941541;
@@ -60,7 +59,6 @@ function App() {
   };
 
   const UpdateCoordinate = async (option: Option) => {
-    console.log(option);
     if (option.type === "address") {
       setLatitude(option.coordinate.latitude);
       setLongitude(option.coordinate.longitude);
@@ -70,11 +68,6 @@ function App() {
     } else {
       const _: never = option;
     }
-  };
-
-  const HandleDistancechange = (event: FormEvent<HTMLElement>) => {
-    // a.persist();
-    console.log(`you chosen: ${event.target}`);
   };
 
   return (

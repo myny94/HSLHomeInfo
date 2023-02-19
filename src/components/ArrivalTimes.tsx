@@ -35,9 +35,9 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
         {sortedArrivals.map((arrivalData, index) => (
           <tr key={`${index}-${arrivalData?.scheduledArrival}`}>
             <td>
-              <img className="mr-2" src={RouteModeToIconName(arrivalData?.trip?.route.mode)} alt="HSL bus Logo" width={20} height={20} />
+              <img src={RouteModeToIconName(arrivalData?.trip?.route.mode)} alt="HSL bus Logo" width={20} height={20} />
               {arrivalData?.trip?.route.shortName}
-              {arrivalData?.headsign ? `  (${arrivalData?.headsign})` : ""}</td>
+              {arrivalData?.headsign ? `  (${arrivalData?.headsign})` : `  (${arrivalData?.trip?.route.longName})`}</td>
             <td>{arrivalData?.stop?.name}</td>
             <td>
               {timeConverter(
