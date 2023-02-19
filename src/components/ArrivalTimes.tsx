@@ -12,7 +12,7 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
       (stopData) => stopData?.node?.stop?.stoptimesWithoutPatterns ?? []
     ) ?? [];
   const sortedArrivals = [...arrivals].sort(
-    (a, b) => a?.scheduledArrival! >= b?.scheduledArrival! ? 1:-1
+    (a, b) => (a?.scheduledArrival! + a?.serviceDay) >= (b?.scheduledArrival! + b?.serviceDay) ? 1:-1
   );
 
   return (
