@@ -21,8 +21,23 @@ function useDebounce<T>(value: T, delay?: number): T {
   return debouncedValue;
 }
 
+type AddressOption = {
+  type: "address";
+  label: string
+  value: string
+  coordinate: Coordinate;
+};
+
+type MyLocationOption = {
+  type: "mylocation";
+  label: string
+  value: string
+};
+
+export type Option = AddressOption | MyLocationOption;
+
 type LocationProps = {
-  CoordinateCallback: (coordinate: Coordinate) => void;
+  CoordinateCallback: (option: Option) => void;
 };
 
 function LocationAutocomplete(props: LocationProps) {
@@ -66,36 +81,28 @@ function LocationAutocomplete(props: LocationProps) {
     );
   };
 
-  type SelectOptionType = {
-    label: string;
-    value: string;
-    coordinate: [number, number];
-  };
-
-  const handleSelectionChange = (option: SelectOptionType | null) => {
+  const handleSelectionChange = (option: Option | null) => {
     if (option) {
       setSearchTerm(option.label);
-      if (option.coordinate!) {
-        props.CoordinateCallback({
-        longitude: option.coordinate[0],
-        latitude: option.coordinate[1],
-      });
-      }
+      props.CoordinateCallback(option);
     }
   };
 
   return (
-    <div className="my-2">
+    <div className="mb-3">
       <Select
         onChange={(e) => handleSelectionChange(e)}
         onInputChange={(e) => setSearchTerm(e)}
         options={
-          options &&
-          options.features.map((option) => ({
+          [
+            { type: 'mylocation' as const, value: 'mylocation', label: 'My current location' },
+          ...(options?.features.map((option) => ({
+            type: 'address' as const,
             label: option.properties.label,
             value: option.properties.id,
-            coordinate: option.geometry.coordinates,
-          }))
+            coordinate: { longitude: option.geometry.coordinates[0], latitude: option.geometry.coordinates[1] },
+          })) ?? [])
+        ]
         }
       />
     </div>
