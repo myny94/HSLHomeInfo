@@ -46,11 +46,19 @@ query GetStopsByRadius($lat: Float!, $lon: Float!, $radius: Int!, $first: Int) {
     edges {
       node {
         stop {
-          gtfsId
-          name
-          lat
-          lon
           stoptimesWithoutPatterns {
+            stop {
+              id
+              gtfsId
+              name
+              lat
+              lon
+              alerts {
+                id
+                alertHeaderText
+                alertUrl
+              }
+            }
             scheduledArrival
             realtimeArrival
             arrivalDelay

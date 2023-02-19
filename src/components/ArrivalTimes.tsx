@@ -20,6 +20,7 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
       <thead>
         <tr>
           <th>Head sign</th>
+          <th>Stop name</th>
           <th>Scheduled arrival</th>
           <th>Arrives in</th>
         </tr>
@@ -27,7 +28,8 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
       <tbody>
         {sortedArrivals.map((arrivalData, index) => (
           <tr key={`${index}-${arrivalData?.scheduledArrival}`}>
-            <td><img src="/images/busIcon.svg" alt="React Logo" width={20} height={20} />{arrivalData?.headsign}</td>
+            <td><img src="/images/busIcon.svg" alt="HSL bus Logo" width={20} height={20} />{arrivalData?.headsign}</td>
+            <td>{arrivalData?.stop?.name}</td>
             <td>
               {timeConverter(
                 arrivalData?.serviceDay + arrivalData?.scheduledArrival
