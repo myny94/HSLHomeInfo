@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import "./App.css";
 import {
   useGetStopByIdQuery,
@@ -13,11 +13,13 @@ import Form from "react-bootstrap/Form";
 import WarningIcon from "@mui/icons-material/Warning";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import { DropdownItemProps } from "react-bootstrap/esm/DropdownItem";
 
 const DEFAULT_LATITUDE = 60.1705011;
 const DEFAULT_LONGITUDE = 24.941541;
 const DEFAULT_DISTANCE = 500;
-const DEFAULT_POLLINTERVAL = 60000;
+const DEFAULT_POLLINTERVAL = 600000;
 
 function App() {
   const [stopId, setStopId] = useState<string>("HSL:4200210");
@@ -70,11 +72,16 @@ function App() {
     }
   };
 
+  const HandleDistancechange = (event: FormEvent<HTMLElement>) => {
+    // a.persist();
+    console.log(`you chosen: ${event.target}`);
+  };
+
   return (
     <div className="m-3">
       <h3>HSL real time table</h3>
       <Form className="m-3">
-        <Form.Group controlId="formLocation">
+        <Form.Group controlId="formLocation" className="mb-3">
           <Form.Label>
             <LocationOnIcon />
             Location
@@ -87,16 +94,22 @@ function App() {
             <DirectionsWalkIcon />
             Distance from the location (in meters)
           </Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter distance limit you wish to set"
-            defaultValue={500}
-            onBlur={(e) => setDistance(parseInt(e.target.value))}
-            onSubmit={(e) => alert("enter clicked")}
-          />
-          <Form.Text className="text-muted">
-            Distances from the selected location to the bus stops
-          </Form.Text>
+          <Dropdown onSelect={(e: string | null) => setDistance(Number(e))}>
+            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+              Distance:  {distance} meters
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item key={200} eventKey={"200"}>
+                200 meters
+              </Dropdown.Item>
+              <Dropdown.Item key={500} eventKey={"500"}>
+                500 meters
+              </Dropdown.Item>
+              <Dropdown.Item key={1000} eventKey={"1000"}>
+                1 km
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Form.Group>
       </Form>
 
@@ -106,7 +119,7 @@ function App() {
         stopData &&
         stopsData && (
           <div className="m-3">
-            <h4>Bus schedule near my location:</h4>
+            <h3>Schedule:</h3>
             <ArrivalTimeDisplay arrivalQuery={stopsData} />
           </div>
         )
