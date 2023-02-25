@@ -10,32 +10,34 @@ import LocationAutocomplete, {
   Option,
 } from "./components/LocationAutocomplete";
 import Form from "react-bootstrap/Form";
-import WarningIcon from "@mui/icons-material/Warning";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 import { Dropdown } from "react-bootstrap";
+import { isDefined } from "./util";
 
-const DEFAULT_LATITUDE = 60.1705011;
-const DEFAULT_LONGITUDE = 24.941541;
 const DEFAULT_DISTANCE = 500;
-const DEFAULT_POLLINTERVAL = 600000;
+const DEFAULT_POLLINTERVAL = 60000;
 
 function App() {
   const [stopId, setStopId] = useState<string>("HSL:4200210");
-  const [latitude, setLatitude] = useState<number>(DEFAULT_LATITUDE);
-  const [longitude, setLongitude] = useState<number>(DEFAULT_LONGITUDE);
+  const [latitude, setLatitude] = useState<number| undefined>();
+  const [longitude, setLongitude] = useState<number| undefined>();
   const [distance, setDistance] = useState<number>(DEFAULT_DISTANCE);
-  const [status, setStatus] = useState<string | null>();
+  const [status, setStatus] = useState<string | undefined>();
   const { data: stopData, loading: stopLoading } = useGetStopByIdQuery({
     variables: { stopId },
   });
-  const { data: stopsData, loading: stopsLoading } = useGetStopsByRadiusQuery({
+  const {
+    data: stopsData,
+    loading: stopsLoading
+  } = useGetStopsByRadiusQuery({
     variables: {
-      lat: latitude,
-      lon: longitude,
+      lat: latitude!,
+      lon: longitude!,
       radius: distance,
     },
     pollInterval: DEFAULT_POLLINTERVAL,
+    skip: !isDefined(latitude) || !isDefined(longitude),
   });
 
   const getCurrentUserLocation = () => {
@@ -47,7 +49,7 @@ function App() {
         (position) => {
           setLatitude(position.coords.latitude);
           setLongitude(position.coords.longitude);
-          setStatus(null);
+          setStatus(undefined);
         },
         () => {
           setStatus(
@@ -62,7 +64,7 @@ function App() {
     if (option.type === "address") {
       setLatitude(option.coordinate.latitude);
       setLongitude(option.coordinate.longitude);
-      setStatus(null);
+      setStatus(undefined);
     } else if (option.type === "mylocation") {
       getCurrentUserLocation();
     } else {
@@ -89,7 +91,7 @@ function App() {
           </Form.Label>
           <Dropdown onSelect={(e: string | null) => setDistance(Number(e))}>
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Distance:  {distance} meters
+              Distance: {distance} meters
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item key={200} eventKey={"200"}>

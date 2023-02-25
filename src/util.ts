@@ -25,7 +25,7 @@ export const timeConverter = (UNIX_timestamp: number) => {
   return time;
 };
 
-export const RemainingTimeConverter = (UNIX_timestamp: number) => {
+export const remainingTimeConverter = (UNIX_timestamp: number) => {
   var currentTime = Math.floor(Date.now() / 1000);
   var TimeDiff = UNIX_timestamp - currentTime;
   var sec = TimeDiff % 60;
@@ -36,3 +36,8 @@ export const RemainingTimeConverter = (UNIX_timestamp: number) => {
   var time = (hour>0)? `${hour} hours ${min} minutes` : (min>0) ?`${min} minutes`: `passed ${Math.abs(min)} minutes ago`;
   return time;
 };
+
+// Type guard
+export const isDefined = <T>(variable: T | undefined | null): variable is T => {
+  return (variable !== null && variable !== undefined);
+}

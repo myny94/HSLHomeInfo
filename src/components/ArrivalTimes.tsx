@@ -1,6 +1,7 @@
 import { GetStopsByRadiusQuery } from "../generated/graphql";
-import { RemainingTimeConverter, timeConverter } from "../util";
+import { remainingTimeConverter, timeConverter } from "../util";
 import { Table } from "react-bootstrap";
+import WarningIcon from "@mui/icons-material/Warning";
 
 type ArrivalProps = {
   arrivalQuery: GetStopsByRadiusQuery;
@@ -45,7 +46,7 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
               )}
             </td>
             <td>
-              {RemainingTimeConverter(
+              {remainingTimeConverter(
                 arrivalData?.serviceDay + arrivalData?.scheduledArrival
               )}
             </td>
