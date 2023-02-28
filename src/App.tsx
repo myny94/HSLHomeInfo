@@ -10,6 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/schedule" element={<MainPage />} />
+          <Route path="/stop" element={<StopPage />} />
           <Route path="*" element={<p>There's nothing here: 404!</p>} />
         </Routes>
       </BrowserRouter>
