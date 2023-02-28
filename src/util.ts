@@ -28,7 +28,6 @@ export const timeConverter = (UNIX_timestamp: number) => {
 export const remainingTimeConverter = (UNIX_timestamp: number) => {
   var currentTime = Math.floor(Date.now() / 1000);
   var TimeDiff = UNIX_timestamp - currentTime;
-  var sec = TimeDiff % 60;
   TimeDiff = Math.floor(TimeDiff / 60);
   var min = TimeDiff % 60;
   TimeDiff = Math.floor(TimeDiff / 60);

@@ -1,0 +1,7 @@
+.stopName {
+  cursor: pointer;
+}
+
+.stopName:hover {
+  color: blue;
+}
