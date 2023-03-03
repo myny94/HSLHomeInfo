@@ -3,15 +3,11 @@ import {
   useGetStopByIdQuery,
   useGetStopsByRadiusQuery,
 } from "../generated/graphql";
-import "bootstrap/dist/css/bootstrap.min.css";
 import ArrivalTimeDisplay from "../components/ArrivalTimes";
 import LocationAutocomplete, {
   Option,
 } from "../components/LocationAutocomplete";
-import Form from "react-bootstrap/Form";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, DropdownButton } from "react-bootstrap";
 import {
   createSearchParams,
   useNavigate,
@@ -20,7 +16,12 @@ import {
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { isDefined } from "../util";
 import "./Main.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import HomeIcon from "@mui/icons-material/Home";
+import Form from "react-bootstrap/Form";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
+
 
 const DEFAULT_DISTANCE = 500;
 const DEFAULT_POLLINTERVAL = 60000;
@@ -108,13 +109,13 @@ function MainPage() {
 
   return (
     <div>
-      <Breadcrumb className="m-1">
+      <Breadcrumb className="mx-3 p-2">
         <Breadcrumb.Item active href="#">
           <HomeIcon />
           Home
         </Breadcrumb.Item>
       </Breadcrumb>
-      <div className="m-3 p-3">
+      <div className="mx-3 p-2">
         <Form>
           <Form.Group controlId="formLocation" className="locationRow mb-2">
             <Form.Label>
@@ -129,22 +130,21 @@ function MainPage() {
               <DirectionsWalkIcon />
               Distance from the location (in meters)
             </Form.Label>
-            <Dropdown onSelect={(e: string | null) => setDistance(Number(e))}>
-              <Dropdown.Toggle>
-                Distance: {distance} meters
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item key={200} eventKey={"200"}>
-                  200 meters
-                </Dropdown.Item>
-                <Dropdown.Item key={500} eventKey={"500"}>
-                  500 meters
-                </Dropdown.Item>
-                <Dropdown.Item key={1000} eventKey={"1000"}>
-                  1 km
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <DropdownButton
+              variant="outline-dark"
+              title={`${distance} meters`}
+              onSelect={(e: string | null) => setDistance(Number(e))}
+            >
+              <Dropdown.Item key={200} eventKey={"200"}>
+                200 meters
+              </Dropdown.Item>
+              <Dropdown.Item key={500} eventKey={"500"}>
+                500 meters
+              </Dropdown.Item>
+              <Dropdown.Item key={1000} eventKey={"1000"}>
+                1 km
+              </Dropdown.Item>
+            </DropdownButton>
           </Form.Group>
         </Form>
       </div>

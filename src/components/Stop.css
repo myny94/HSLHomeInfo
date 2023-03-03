@@ -1,0 +1,20 @@
+.stopDeecription {
+  display: flex;
+  gap: 10px;
+}
+
+.chip {
+  --color: #d0dffc;
+  font-size: 1rem;
+  border-radius: 100rem;
+  box-shadow: 0 0 0 2px #d0dffc;
+  background-color: transparent;
+  color: #283b70;
+  font-weight: bold;
+  transition: background-color 250ms ease, box-shadow 250ms ease;
+}
+
+.chip:hover {
+  background-color: #d0dffc;
+  box-shadow: 0 0 0 calc(2px + 0.25rem) #d0dffc;
+}

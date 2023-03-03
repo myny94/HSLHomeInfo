@@ -1,7 +1,9 @@
 import { GetStopByIdQuery } from "../generated/graphql";
 import { remainingTimeConverter, timeConverter } from "../util";
-import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
-import { Table } from "react-bootstrap";
+import { Breadcrumb, Table } from "react-bootstrap";
+import { stringToIconName } from "../util"
+import HomeIcon from "@mui/icons-material/Home";
+import "./Stop.css"
 
 type StopProps = {
   stopQuery: GetStopByIdQuery;
@@ -14,10 +16,36 @@ function StopDisplay(props: StopProps) {
     }
   }
 
+  function RouteZoneToIconName(zone: string | null | undefined) {
+    if (zone!) {
+      return `/images/${zone.toLowerCase()}Icon.svg`;
+    }
+  }
+
   return (
-    <div>
-      <div>Stop name: {props.stopQuery.stop?.name}</div>
-      <div>Stop code: {props?.stopQuery.stop?.gtfsId}</div>
+    <div className="m-3">
+      <Breadcrumb className="">
+        <Breadcrumb.Item href="/schedule">
+          <HomeIcon />
+          Home
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active href="#">
+          {props.stopQuery.stop?.name}
+        </Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="my-2">
+        <h3>{props.stopQuery.stop?.name}</h3>
+        <div className="stopDeecription">
+          <div>{props?.stopQuery.stop?.desc}</div>
+          <div className="chip">{props?.stopQuery.stop?.code}</div>
+          <img
+                src={stringToIconName(props?.stopQuery.stop?.zoneId?.toLowerCase())}
+                alt="HSL zone Logo"
+                width={20}
+                height={20}
+              />
+        </div>
+      </div>
       <Table striped size="sm">
         <thead>
           <tr>

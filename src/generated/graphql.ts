@@ -1456,14 +1456,14 @@ export type GetStationsQuery = { __typename?: 'QueryType', stations?: Array<{ __
 export type GetStopsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetStopsQuery = { __typename?: 'QueryType', stops?: Array<{ __typename?: 'Stop', gtfsId: string, name: string, lat?: number | null, lon?: number | null, zoneId?: string | null } | null> | null };
+export type GetStopsQuery = { __typename?: 'QueryType', stops?: Array<{ __typename?: 'Stop', gtfsId: string, name: string, lat?: number | null, lon?: number | null, zoneId?: string | null, code?: string | null } | null> | null };
 
 export type GetStopByIdQueryVariables = Exact<{
   stopId: Scalars['String'];
 }>;
 
 
-export type GetStopByIdQuery = { __typename?: 'QueryType', stop?: { __typename?: 'Stop', name: string, gtfsId: string, lat?: number | null, lon?: number | null, stoptimesWithoutPatterns?: Array<{ __typename?: 'Stoptime', scheduledArrival?: number | null, scheduledDeparture?: number | null, serviceDay?: any | null, headsign?: string | null, trip?: { __typename?: 'Trip', tripShortName?: string | null, route: { __typename?: 'Route', longName?: string | null, shortName?: string | null, mode?: Mode | null } } | null } | null> | null } | null };
+export type GetStopByIdQuery = { __typename?: 'QueryType', stop?: { __typename?: 'Stop', name: string, gtfsId: string, lat?: number | null, lon?: number | null, desc?: string | null, zoneId?: string | null, code?: string | null, stoptimesWithoutPatterns?: Array<{ __typename?: 'Stoptime', scheduledArrival?: number | null, scheduledDeparture?: number | null, serviceDay?: any | null, headsign?: string | null, trip?: { __typename?: 'Trip', tripShortName?: string | null, route: { __typename?: 'Route', longName?: string | null, shortName?: string | null, mode?: Mode | null } } | null } | null> | null } | null };
 
 export type GetStopsByRadiusQueryVariables = Exact<{
   lat: Scalars['Float'];
@@ -1525,6 +1525,7 @@ export const GetStopsDocument = gql`
     lat
     lon
     zoneId
+    code
   }
 }
     `;
@@ -1562,6 +1563,9 @@ export const GetStopByIdDocument = gql`
     gtfsId
     lat
     lon
+    desc
+    zoneId
+    code
     stoptimesWithoutPatterns {
       scheduledArrival
       scheduledDeparture

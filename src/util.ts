@@ -40,3 +40,9 @@ export const remainingTimeConverter = (UNIX_timestamp: number) => {
 export const isDefined = <T>(variable: T | undefined | null): variable is T => {
   return (variable !== null && variable !== undefined);
 }
+
+export const stringToIconName = (string: string | null | undefined) => {
+  if (isDefined(string)) {
+    return `/images/${string.toLowerCase()}Icon.svg`;
+  }
+}

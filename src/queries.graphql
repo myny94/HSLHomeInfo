@@ -17,6 +17,7 @@ query getStops {
     lat
     lon
     zoneId
+    code
   }
 }
 
@@ -26,6 +27,9 @@ query GetStopById($stopId: String!) {
     gtfsId
     lat
     lon
+    desc
+    zoneId
+    code
     stoptimesWithoutPatterns {
       scheduledArrival
       scheduledDeparture

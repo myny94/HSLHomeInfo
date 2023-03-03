@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   viewBox="0 0 377.94666 377.94666"
+   height="377.94666"
+   width="377.94666"
+   xml:space="preserve"
+   id="svg2"
+   version="1.1"><metadata
+     id="metadata8"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+     id="defs6"><clipPath
+       id="clipPath18"
+       clipPathUnits="userSpaceOnUse"><path
+         id="path16"
+         d="M 0,283.46 H 283.46 V 0 H 0 Z" /></clipPath></defs><g
+     transform="matrix(1.3333333,0,0,-1.3333333,0,377.94667)"
+     id="g10"><g
+       id="g12"><g
+         clip-path="url(#clipPath18)"
+         id="g14"><g
+           transform="translate(-0.0024,35.4316)"
+           id="g20"><path
+             id="path22"
+             style="fill:#007ac9;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             d="m 0,0 c 0,-19.488 15.945,-35.435 35.434,-35.435 h 212.597 c 19.489,0 35.434,15.947 35.434,35.435 v 212.598 c 0,19.487 -15.945,35.433 -35.434,35.433 H 35.434 C 15.945,248.031 0,232.085 0,212.598 Z" /></g><g
+           transform="translate(158.1143,68.4951)"
+           id="g24"><path
+             id="path26"
+             style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             d="m 0,0 c 25.478,0 40.947,10.009 40.947,29.118 v 0.607 c 0,17.895 -14.256,28.511 -43.677,28.511 H -61.876 V 0 Z m -10.919,89.781 c 23.961,0 40.037,9.403 40.037,28.815 v 0.606 c 0,16.682 -13.346,26.995 -37.308,26.995 H -61.876 V 89.781 Z m -87.658,70.672 c 0,10.616 8.189,18.805 18.806,18.805 h 76.434 c 24.266,0 43.374,-6.673 55.507,-18.805 9.402,-9.403 14.256,-20.929 14.256,-35.184 v -0.607 c 0,-25.478 -14.56,-39.128 -30.331,-47.317 24.871,-8.493 42.16,-22.748 42.16,-51.564 v -0.606 c 0,-37.914 -31.241,-58.236 -78.559,-58.236 h -79.467 c -10.617,0 -18.806,8.189 -18.806,18.805 z" /></g></g></g></g></svg>

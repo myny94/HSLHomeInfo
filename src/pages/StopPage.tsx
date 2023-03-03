@@ -28,13 +28,12 @@ function StopPage() {
 
 
   return (
-    <div className="m-3">
+    <div>
       {stopLoading ? (
         <p>Loading ...</p>
       ) : (
         stopData && (
-          <div className="m-3">
-            <h3>Stop:</h3>
+          <div>
             <StopDisplay stopQuery={stopData}/>
           </div>
         )
