@@ -17,8 +17,10 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
+import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { isDefined } from "../util";
 import "./Main.css";
+import HomeIcon from "@mui/icons-material/Home";
 
 const DEFAULT_DISTANCE = 500;
 const DEFAULT_POLLINTERVAL = 60000;
@@ -36,8 +38,8 @@ function MainPage() {
     var latitudeParam = searchParams.get("lat");
     var longitudeParam = searchParams.get("lon");
     if (latitudeParam && longitudeParam) {
-        setLatitude(Number(latitudeParam));
-        setLongitude(Number(longitudeParam));
+      setLatitude(Number(latitudeParam));
+      setLongitude(Number(longitudeParam));
     }
   }, [searchParams]);
 
@@ -105,51 +107,59 @@ function MainPage() {
   };
 
   return (
-    <div className="m-3">
-      <h3>HSL real time table</h3>
-      <Form className="m-3">
-        <Form.Group controlId="formLocation" className="mb-3">
-          <Form.Label>
-            <LocationOnIcon />
-            Location
-          </Form.Label>
-          <LocationAutocomplete CoordinateCallback={UpdateCoordinate} />
-          <Form.Text className="text-muted">{status}</Form.Text>
-        </Form.Group>
-        <Form.Group controlId="formDistance">
-          <Form.Label>
-            <DirectionsWalkIcon />
-            Distance from the location (in meters)
-          </Form.Label>
-          <Dropdown onSelect={(e: string | null) => setDistance(Number(e))}>
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Distance: {distance} meters
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item key={200} eventKey={"200"}>
-                200 meters
-              </Dropdown.Item>
-              <Dropdown.Item key={500} eventKey={"500"}>
-                500 meters
-              </Dropdown.Item>
-              <Dropdown.Item key={1000} eventKey={"1000"}>
-                1 km
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Form.Group>
-      </Form>
-
-      {stopsLoading ? (
-        <p>Loading ...</p>
-      ) : (
-        stopsData && (
-          <div className="m-3">
-            <h3>Schedule:</h3>
-            <ArrivalTimeDisplay arrivalQuery={stopsData} />
-          </div>
-        )
-      )}
+    <div>
+      <Breadcrumb className="m-1">
+        <Breadcrumb.Item active href="#">
+          <HomeIcon />
+          Home
+        </Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="m-3 p-3">
+        <Form>
+          <Form.Group controlId="formLocation" className="locationRow mb-2">
+            <Form.Label>
+              <LocationOnIcon />
+              Location
+            </Form.Label>
+            <LocationAutocomplete CoordinateCallback={UpdateCoordinate} />
+            <Form.Text className="text-muted">{status}</Form.Text>
+          </Form.Group>
+          <Form.Group controlId="formDistance" className="distanceRow">
+            <Form.Label>
+              <DirectionsWalkIcon />
+              Distance from the location (in meters)
+            </Form.Label>
+            <Dropdown onSelect={(e: string | null) => setDistance(Number(e))}>
+              <Dropdown.Toggle>
+                Distance: {distance} meters
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item key={200} eventKey={"200"}>
+                  200 meters
+                </Dropdown.Item>
+                <Dropdown.Item key={500} eventKey={"500"}>
+                  500 meters
+                </Dropdown.Item>
+                <Dropdown.Item key={1000} eventKey={"1000"}>
+                  1 km
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Form.Group>
+        </Form>
+      </div>
+      <div className="content m-3">
+        {stopsLoading ? (
+          <p>Loading ...</p>
+        ) : (
+          stopsData && (
+            <div className="m-3">
+              <h3>Schedule:</h3>
+              <ArrivalTimeDisplay arrivalQuery={stopsData} />
+            </div>
+          )
+        )}
+      </div>
     </div>
   );
 }

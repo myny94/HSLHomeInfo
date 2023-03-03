@@ -1,7 +1,6 @@
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import { GeoCoding } from "../types/Geocoding";
-import Spinner from "react-bootstrap/Spinner";
 import { Coordinate } from "../types/Coordinate";
 
 const url = "https://api.digitransit.fi/geocoding/v1/autocomplete";
@@ -72,14 +71,6 @@ function LocationAutocomplete(props: LocationProps) {
       cancelled = true;
     };
   }, [debouncedVal]);
-
-  const LoadingIndicator = () => {
-    return (
-      <div style={{ marginRight: "10px", marginTop: "5px" }}>
-        <Spinner animation="border" />
-      </div>
-    );
-  };
 
   const handleSelectionChange = (option: Option | null) => {
     if (option) {

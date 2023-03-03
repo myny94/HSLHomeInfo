@@ -48,7 +48,7 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
             <td>
               <img
                 src={RouteModeToIconName(arrivalData?.trip?.route.mode)}
-                alt="HSL bus Logo"
+                alt="HSL transportation Logo"
                 width={20}
                 height={20}
               />
