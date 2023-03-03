@@ -1463,7 +1463,7 @@ export type GetStopByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetStopByIdQuery = { __typename?: 'QueryType', stop?: { __typename?: 'Stop', name: string, gtfsId: string, lat?: number | null, lon?: number | null, stoptimesWithoutPatterns?: Array<{ __typename?: 'Stoptime', scheduledArrival?: number | null, realtimeArrival?: number | null, arrivalDelay?: number | null, scheduledDeparture?: number | null, realtimeDeparture?: number | null, departureDelay?: number | null, realtime?: boolean | null, realtimeState?: RealtimeState | null, serviceDay?: any | null, headsign?: string | null } | null> | null } | null };
+export type GetStopByIdQuery = { __typename?: 'QueryType', stop?: { __typename?: 'Stop', name: string, gtfsId: string, lat?: number | null, lon?: number | null, stoptimesWithoutPatterns?: Array<{ __typename?: 'Stoptime', scheduledArrival?: number | null, scheduledDeparture?: number | null, serviceDay?: any | null, headsign?: string | null, trip?: { __typename?: 'Trip', tripShortName?: string | null, route: { __typename?: 'Route', longName?: string | null, shortName?: string | null, mode?: Mode | null } } | null } | null> | null } | null };
 
 export type GetStopsByRadiusQueryVariables = Exact<{
   lat: Scalars['Float'];
@@ -1564,15 +1564,17 @@ export const GetStopByIdDocument = gql`
     lon
     stoptimesWithoutPatterns {
       scheduledArrival
-      realtimeArrival
-      arrivalDelay
       scheduledDeparture
-      realtimeDeparture
-      departureDelay
-      realtime
-      realtimeState
       serviceDay
       headsign
+      trip {
+        route {
+          longName
+          shortName
+          mode
+        }
+        tripShortName
+      }
     }
   }
 }

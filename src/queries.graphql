@@ -28,15 +28,17 @@ query GetStopById($stopId: String!) {
     lon
     stoptimesWithoutPatterns {
       scheduledArrival
-      realtimeArrival
-      arrivalDelay
       scheduledDeparture
-      realtimeDeparture
-      departureDelay
-      realtime
-      realtimeState
       serviceDay
       headsign
+      trip {
+        route {
+          longName
+          shortName
+          mode
+        }
+        tripShortName
+      }
     }
   }
 }
