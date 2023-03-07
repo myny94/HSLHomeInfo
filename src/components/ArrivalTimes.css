@@ -27,7 +27,7 @@
   gap: 4px;
 }
 
-@media (max-width: 479px) {
+@media (max-width: 850px) {
   .arrivalTime {
     margin-left:auto;
   }

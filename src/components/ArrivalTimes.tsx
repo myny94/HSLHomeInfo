@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { useNavigate } from "react-router";
 import { createSearchParams } from "react-router-dom";
 import { GetStopsByRadiusQuery } from "../generated/graphql";
 import { remainingTimeConverter, timeConverter } from "../util";
-import { Dropdown, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import "./ArrivalTimes.css";
 
 type ArrivalProps = {

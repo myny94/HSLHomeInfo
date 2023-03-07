@@ -15,12 +15,6 @@ function StopDisplay(props: StopProps) {
     }
   }
 
-  function RouteZoneToIconName(zone: string | null | undefined) {
-    if (zone!) {
-      return `/images/${zone.toLowerCase()}Icon.svg`;
-    }
-  }
-
   return (
     <div className="m-3">
       <div className="my-2">
@@ -48,7 +42,7 @@ function StopDisplay(props: StopProps) {
             props.stopQuery.stop?.stoptimesWithoutPatterns?.map(
               (stopTime, i) => (
                 <tr key={i}>
-                  <td className="destinationRow">
+                  <td className="stopRow">
                     <img
                       src={RouteModeToIconName(stopTime?.trip?.route.mode)}
                       alt="HSL transportation Logo"
@@ -69,13 +63,13 @@ function StopDisplay(props: StopProps) {
                     </div>
                   </td>
                   <td>
-                    <div className="transportationRow">
-                      <span className="remainingTime">
+                    <div className="stopRow">
+                      <span className="stopRemainingTime">
                         {remainingTimeConverter(
                           stopTime?.serviceDay + stopTime?.scheduledArrival
                         )}
                       </span>
-                      <span className="arrivalTime">
+                      <span className="stopArrivalTime">
                         {
                           timeConverter(
                             stopTime?.serviceDay + stopTime?.scheduledArrival
