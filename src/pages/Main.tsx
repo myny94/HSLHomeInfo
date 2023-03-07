@@ -22,7 +22,6 @@ import Form from "react-bootstrap/Form";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 
-
 const DEFAULT_DISTANCE = 500;
 const DEFAULT_POLLINTERVAL = 60000;
 
@@ -131,7 +130,7 @@ function MainPage() {
               Distance from the location (in meters)
             </Form.Label>
             <DropdownButton
-              variant="outline-dark"
+              variant="outline-secondary"
               title={`${distance} meters`}
               onSelect={(e: string | null) => setDistance(Number(e))}
             >

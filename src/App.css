@@ -1,9 +1,10 @@
 .App {
-
+  --bus-blue:#007AC9;
+  --subway-orange: #FF6319;
+  --train-purple: #8C4799;
+  --tram-green: #00985F;
+  --gray: #DDDDDC;
 }
-
-
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -17,7 +18,7 @@
 
 
 .HSLheader {
-  background-color: #007AC9;
+  background-color: var(--bus-blue);
   background-size: cover;
   box-sizing: border-box;
   padding: 10px 0;
@@ -36,6 +37,7 @@
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
+  font-weight:bold;
 }
 
 .subHeadingText {
@@ -50,4 +52,5 @@
   margin-top: 0;
   margin-bottom: 15px;
   text-align: center;
+  font-weight: lighter;
 }

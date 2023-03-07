@@ -14,7 +14,20 @@
   transition: background-color 250ms ease, box-shadow 250ms ease;
 }
 
+.destinationRow {
+  display: flex;
+}
+
 .chip:hover {
   background-color: #d0dffc;
   box-shadow: 0 0 0 calc(2px + 0.25rem) #d0dffc;
+}
+
+.stopTableHead,
+.shortName {
+  font-weight: bolder;
+}
+
+.stopTableBody {
+  font-weight: 350;
 }

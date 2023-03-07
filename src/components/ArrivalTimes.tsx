@@ -33,8 +33,8 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
   }
 
   return (
-    <Table striped size="sm">
-      <thead>
+    <Table size="sm">
+      <thead className="scheduleTableHead">
         <tr>
           <th>Transportation</th>
           <th>Stop name</th>
@@ -42,20 +42,30 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
           <th>Arrives in</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="scheduleTable">
         {sortedArrivals.map((arrivalData, index) => (
           <tr key={`${index}-${arrivalData?.scheduledArrival}`}>
-            <td>
-              <img
-                src={RouteModeToIconName(arrivalData?.trip?.route.mode)}
-                alt="HSL transportation Logo"
-                width={20}
-                height={20}
-              />
-              {arrivalData?.trip?.route.shortName}
-              {arrivalData?.headsign
-                ? `  (${arrivalData?.headsign})`
-                : `  (${arrivalData?.trip?.route.longName})`}
+            <td className="transportationRow">
+              <span>
+                <img
+                  src={RouteModeToIconName(arrivalData?.trip?.route.mode)}
+                  alt="HSL transportation Logo"
+                  width={20}
+                  height={20}
+                />
+              </span>
+              <span
+                className={`shortName ${arrivalData?.trip?.route.mode?.toLowerCase()}`}
+              >
+                {arrivalData?.trip?.route.shortName}
+              </span>
+              <span
+                className={`longName ${arrivalData?.trip?.route.mode?.toLowerCase()}`}
+              >
+                {arrivalData?.headsign
+                  ? `  (${arrivalData?.headsign})`
+                  : `  (${arrivalData?.trip?.route.longName})`}
+              </span>
             </td>
             <td>
               <div

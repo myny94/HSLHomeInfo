@@ -1,9 +1,10 @@
 import { GetStopByIdQuery } from "../generated/graphql";
 import { remainingTimeConverter, timeConverter } from "../util";
 import { Breadcrumb, Table } from "react-bootstrap";
-import { stringToIconName } from "../util"
+import { stringToIconName } from "../util";
+import { Marker } from "react-simple-maps";
 import HomeIcon from "@mui/icons-material/Home";
-import "./Stop.css"
+import "./Stop.css";
 
 type StopProps = {
   stopQuery: GetStopByIdQuery;
@@ -39,38 +40,45 @@ function StopDisplay(props: StopProps) {
           <div>{props?.stopQuery.stop?.desc}</div>
           <div className="chip">{props?.stopQuery.stop?.code}</div>
           <img
-                src={stringToIconName(props?.stopQuery.stop?.zoneId?.toLowerCase())}
-                alt="HSL zone Logo"
-                width={20}
-                height={20}
-              />
+            src={stringToIconName(props?.stopQuery.stop?.zoneId?.toLowerCase())}
+            alt="HSL zone Logo"
+            width={20}
+            height={20}
+          />
         </div>
       </div>
-      <Table striped size="sm">
-        <thead>
+      <Table size="sm">
+        <thead className="stopTableHead">
           <tr>
             <th>Destination</th>
             <th>Scheduled arrival</th>
             <th>Arrives in</th>
           </tr>
         </thead>
-
-        <tbody>
+        <tbody className="stopTableBody">
           {props &&
             props.stopQuery.stop?.stoptimesWithoutPatterns?.map(
               (stopTime, i) => (
                 <tr key={i}>
-                  <td>
+                  <td className="destinationRow">
                     <img
                       src={RouteModeToIconName(stopTime?.trip?.route.mode)}
                       alt="HSL transportation Logo"
                       width={20}
                       height={20}
                     />
-                    {stopTime?.trip?.route.shortName}
-                    {stopTime?.headsign
-                      ? `  (${stopTime?.headsign})`
-                      : `  (${stopTime?.trip?.route.longName})`}
+                    <div
+                      className={`shortName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
+                    >
+                      {stopTime?.trip?.route.shortName}
+                    </div>
+                    <div
+                      className={`longName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
+                    >
+                      {stopTime?.headsign
+                        ? `  (${stopTime?.headsign})`
+                        : `  (${stopTime?.trip?.route.longName})`}
+                    </div>
                   </td>
                   <td>
                     {timeConverter(

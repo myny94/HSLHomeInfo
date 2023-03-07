@@ -2,6 +2,35 @@
   cursor: pointer;
 }
 
+.scheduleTableHead, .shortName {
+  font-weight:bolder;
+}
+
+.scheduleTableBody {
+  font-weight: 350;
+}
+
 .stopName:hover {
   color: blue;
+}
+
+.transportationRow {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.shortName.bus, .longName.bus {
+  color: var(--bus-blue);
+}
+
+.shortName.subway, .longName.subway {
+  color: var(--subway-orange)
+}
+
+.shortName.tram, .longName.tram {
+  color: var(--tram-green)
+}
+
+.shortName.rail, .longName.rail {
+  color: var(--train-purple)
 }
