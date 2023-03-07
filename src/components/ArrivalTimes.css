@@ -1,9 +1,16 @@
 .stopName {
   cursor: pointer;
+  color: #666666;
+  font-weight: 500;
 }
 
-.scheduleTableHead, .shortName {
+.scheduleTableHead, .shortName, .arrivalTime {
   font-weight:bolder;
+}
+
+.remainingTime {
+  font-weight: lighter;
+  margin-left: auto;
 }
 
 .scheduleTableBody {
@@ -11,12 +18,19 @@
 }
 
 .stopName:hover {
-  color: blue;
+  color: #333333;
 }
 
 .transportationRow {
   display: flex;
   flex-wrap: wrap;
+  gap: 4px;
+}
+
+@media (max-width: 479px) {
+  .arrivalTime {
+    margin-left:auto;
+  }
 }
 
 .shortName.bus, .longName.bus {

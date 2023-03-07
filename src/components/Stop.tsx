@@ -1,9 +1,7 @@
 import { GetStopByIdQuery } from "../generated/graphql";
 import { remainingTimeConverter, timeConverter } from "../util";
-import { Breadcrumb, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { stringToIconName } from "../util";
-import { Marker } from "react-simple-maps";
-import HomeIcon from "@mui/icons-material/Home";
 import "./Stop.css";
 
 type StopProps = {
@@ -25,15 +23,6 @@ function StopDisplay(props: StopProps) {
 
   return (
     <div className="m-3">
-      <Breadcrumb className="">
-        <Breadcrumb.Item href="/schedule">
-          <HomeIcon />
-          Home
-        </Breadcrumb.Item>
-        <Breadcrumb.Item active href="#">
-          {props.stopQuery.stop?.name}
-        </Breadcrumb.Item>
-      </Breadcrumb>
       <div className="my-2">
         <h3>{props.stopQuery.stop?.name}</h3>
         <div className="stopDeecription">
@@ -51,8 +40,7 @@ function StopDisplay(props: StopProps) {
         <thead className="stopTableHead">
           <tr>
             <th>Destination</th>
-            <th>Scheduled arrival</th>
-            <th>Arrives in</th>
+            <th></th>
           </tr>
         </thead>
         <tbody className="stopTableBody">
@@ -81,14 +69,20 @@ function StopDisplay(props: StopProps) {
                     </div>
                   </td>
                   <td>
-                    {timeConverter(
-                      stopTime?.serviceDay + stopTime?.scheduledArrival
-                    )}
-                  </td>
-                  <td>
-                    {remainingTimeConverter(
-                      stopTime?.serviceDay + stopTime?.scheduledArrival
-                    )}
+                    <div className="transportationRow">
+                      <span className="remainingTime">
+                        {remainingTimeConverter(
+                          stopTime?.serviceDay + stopTime?.scheduledArrival
+                        )}
+                      </span>
+                      <span className="arrivalTime">
+                        {
+                          timeConverter(
+                            stopTime?.serviceDay + stopTime?.scheduledArrival
+                          )[1]
+                        }
+                      </span>
+                    </div>
                   </td>
                 </tr>
               )

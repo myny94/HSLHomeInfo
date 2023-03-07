@@ -11,14 +11,14 @@ type ArrivalProps = {
 };
 
 function ArrivalTimeDisplay(props: ArrivalProps) {
-  const [transportationOptions, setTransportationOptions] = useState<string[]>(
-    []
-  );
   const navigate = useNavigate();
 
   const arrivals =
     props.arrivalQuery.stopsByRadius?.edges?.flatMap(
-      (stopData) => stopData?.node?.stop?.stoptimesWithoutPatterns ?? []
+      (stopData) =>
+        stopData?.node?.stop?.stoptimesWithoutPatterns?.filter(
+          (timePattern) => timePattern?.scheduledArrival! + timePattern?.serviceDay! > Math.floor(Date.now() / 1000)
+        ) ?? []
     ) ?? [];
   const sortedArrivals = [...arrivals].sort((a, b) =>
     a?.scheduledArrival! + a?.serviceDay >= b?.scheduledArrival! + b?.serviceDay
@@ -37,35 +37,36 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
       <thead className="scheduleTableHead">
         <tr>
           <th>Transportation</th>
-          <th>Stop name</th>
-          <th>Scheduled arrival</th>
-          <th>Arrives in</th>
+          <th>Stop</th>
+          <th></th>
         </tr>
       </thead>
-      <tbody className="scheduleTable">
+      <tbody className="scheduleTableBody">
         {sortedArrivals.map((arrivalData, index) => (
           <tr key={`${index}-${arrivalData?.scheduledArrival}`}>
-            <td className="transportationRow">
-              <span>
-                <img
-                  src={RouteModeToIconName(arrivalData?.trip?.route.mode)}
-                  alt="HSL transportation Logo"
-                  width={20}
-                  height={20}
-                />
-              </span>
-              <span
-                className={`shortName ${arrivalData?.trip?.route.mode?.toLowerCase()}`}
-              >
-                {arrivalData?.trip?.route.shortName}
-              </span>
-              <span
-                className={`longName ${arrivalData?.trip?.route.mode?.toLowerCase()}`}
-              >
-                {arrivalData?.headsign
-                  ? `  (${arrivalData?.headsign})`
-                  : `  (${arrivalData?.trip?.route.longName})`}
-              </span>
+            <td>
+              <div className="transportationRow">
+                <span>
+                  <img
+                    src={RouteModeToIconName(arrivalData?.trip?.route.mode)}
+                    alt="HSL transportation Logo"
+                    width={20}
+                    height={20}
+                  />
+                </span>
+                <span
+                  className={`shortName ${arrivalData?.trip?.route.mode?.toLowerCase()}`}
+                >
+                  {arrivalData?.trip?.route.shortName}
+                </span>
+                <span
+                  className={`longName ${arrivalData?.trip?.route.mode?.toLowerCase()}`}
+                >
+                  {arrivalData?.headsign
+                    ? `  (${arrivalData?.headsign})`
+                    : `  (${arrivalData?.trip?.route.longName})`}
+                </span>
+              </div>
             </td>
             <td>
               <div
@@ -83,14 +84,21 @@ function ArrivalTimeDisplay(props: ArrivalProps) {
               </div>
             </td>
             <td>
-              {timeConverter(
-                arrivalData?.serviceDay + arrivalData?.scheduledArrival
-              )}
-            </td>
-            <td>
-              {remainingTimeConverter(
-                arrivalData?.serviceDay + arrivalData?.scheduledArrival
-              )}
+              <div className="transportationRow">
+                <span className="remainingTime">
+                  {" "}
+                  {remainingTimeConverter(
+                    arrivalData?.serviceDay + arrivalData?.scheduledArrival
+                  )}
+                </span>
+                <span className="arrivalTime">
+                  {
+                    timeConverter(
+                      arrivalData?.serviceDay + arrivalData?.scheduledArrival
+                    )[1]
+                  }
+                </span>
+              </div>
             </td>
           </tr>
         ))}

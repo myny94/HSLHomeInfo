@@ -108,12 +108,6 @@ function MainPage() {
 
   return (
     <div>
-      <Breadcrumb className="mx-3 p-2">
-        <Breadcrumb.Item active href="#">
-          <HomeIcon />
-          Home
-        </Breadcrumb.Item>
-      </Breadcrumb>
       <div className="mx-3 p-2">
         <Form>
           <Form.Group controlId="formLocation" className="locationRow mb-2">
@@ -147,7 +141,7 @@ function MainPage() {
           </Form.Group>
         </Form>
       </div>
-      <div className="content m-3">
+      <div className="content table-responsive m-3">
         {stopsLoading ? (
           <p>Loading ...</p>
         ) : (
