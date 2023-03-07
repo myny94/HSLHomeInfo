@@ -6,7 +6,7 @@ import "./App.css"
 
 function App() {
   return (
-    <div className="App table-responsive">
+    <div className="App">
       <header className="HSLheader">
         <div className="headingText p-2">HSL real time table</div>
         <p className="subHeadingText">Real-time bus schedule near your location (Uusimaa region)</p>
