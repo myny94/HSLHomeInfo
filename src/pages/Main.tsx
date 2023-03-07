@@ -110,15 +110,17 @@ function MainPage() {
     <div>
       <div className="mx-3 p-2">
         <Form>
-          <Form.Group controlId="formLocation" className="locationRow mb-2">
-            <Form.Label>
-              <LocationOnIcon />
-              Location
-            </Form.Label>
-            <LocationAutocomplete CoordinateCallback={UpdateCoordinate} />
+          <Form.Group controlId="formLocation">
+            <div className="locationRow">
+              <Form.Label>
+                <LocationOnIcon />
+                Location
+              </Form.Label>
+              <LocationAutocomplete CoordinateCallback={UpdateCoordinate} />
+            </div>
             <Form.Text className="text-muted">{status}</Form.Text>
           </Form.Group>
-          <Form.Group controlId="formDistance" className="distanceRow">
+          <Form.Group controlId="formDistance" className="distanceRow mt-3">
             <Form.Label>
               <DirectionsWalkIcon />
               Distance from the location (in meters)
