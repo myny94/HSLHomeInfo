@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import StopDisplay from "../components/Stop";
-import {
-  useGetStopByIdQuery,
-} from "../generated/graphql";
+import { useGetStopByIdQuery } from "../generated/graphql";
 import { isDefined } from "../util";
-import "./Main.css";
-
+import "./StopPage.css";
 
 function StopPage() {
   const [stopId, setStopId] = useState<string | undefined>();
@@ -15,10 +12,10 @@ function StopPage() {
   useEffect(() => {
     var idParam = searchParams.get("id");
     if (idParam) {
-        setStopId(idParam);
+      setStopId(idParam);
     }
   }, [searchParams]);
-  
+
   const { data: stopData, loading: stopLoading } = useGetStopByIdQuery({
     variables: {
       stopId: stopId!,
@@ -26,15 +23,25 @@ function StopPage() {
     skip: !isDefined(stopId),
   });
 
-
   return (
     <div>
+      <div className="m-3 navigationRow">
+        <div className="backButton">
+          <img
+            src="/images/backButton.svg"
+            alt="HSL walker Logo"
+            width={25}
+            height={25}
+          />
+        </div>
+        <div>Back to Timetable</div>
+      </div>
       {stopLoading ? (
         <p>Loading ...</p>
       ) : (
         stopData && (
           <div>
-            <StopDisplay stopQuery={stopData}/>
+            <StopDisplay stopQuery={stopData} />
           </div>
         )
       )}

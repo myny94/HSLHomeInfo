@@ -43,7 +43,6 @@ function LocationAutocomplete(props: LocationProps) {
   const [options, setOptions] = useState<GeoCoding>();
   const [searchTerm, setSearchTerm] = useState<string>("");
   const debouncedVal = useDebounce(searchTerm, 500);
-  const [isLoading, setIsLoading] = useState<boolean>();
 
   useEffect(() => {
     let cancelled = false;

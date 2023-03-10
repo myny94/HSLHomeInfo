@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  useGetStopByIdQuery,
-  useGetStopsByRadiusQuery,
-} from "../generated/graphql";
+import { useGetStopsByRadiusQuery } from "../generated/graphql";
 import ArrivalTimeDisplay from "../components/ArrivalTimes";
 import LocationAutocomplete, {
   Option,
@@ -13,20 +10,15 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import Breadcrumb from "react-bootstrap/Breadcrumb";
 import { isDefined } from "../util";
+import Form from "react-bootstrap/Form";
 import "./Main.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import HomeIcon from "@mui/icons-material/Home";
-import Form from "react-bootstrap/Form";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import DirectionsWalkIcon from "@mui/icons-material/DirectionsWalk";
 
 const DEFAULT_DISTANCE = 500;
 const DEFAULT_POLLINTERVAL = 60000;
 
 function MainPage() {
-  const [stopId, setStopId] = useState<string | undefined>();
   const [latitude, setLatitude] = useState<number | undefined>();
   const [longitude, setLongitude] = useState<number | undefined>();
   const [distance, setDistance] = useState<number>(DEFAULT_DISTANCE);
@@ -42,13 +34,6 @@ function MainPage() {
       setLongitude(Number(longitudeParam));
     }
   }, [searchParams]);
-
-  const { data: stopData, loading: stopLoading } = useGetStopByIdQuery({
-    variables: {
-      stopId: stopId!,
-    },
-    skip: !isDefined(stopId),
-  });
 
   const { data: stopsData, loading: stopsLoading } = useGetStopsByRadiusQuery({
     variables: {
@@ -108,27 +93,42 @@ function MainPage() {
 
   return (
     <div>
-      <div className="mx-3 p-2">
+      <div className="mx-3 pt-2 filterHeader">
         <Form>
-          <Form.Group controlId="formLocation">
-            <div className="locationRow">
-              <Form.Label>
-                <LocationOnIcon />
-                Location
-              </Form.Label>
+          <div className="locationRow">
+            <div className="locationTitle">
+              <div>
+                <img
+                  src="/images/search.svg"
+                  alt="HSL search Logo"
+                  width={20}
+                  height={20}
+                />
+              </div>
+              <div>Location</div>
+            </div>
+            <div className="locationAutocomplete">
               <LocationAutocomplete CoordinateCallback={UpdateCoordinate} />
             </div>
-            <Form.Text className="text-muted">{status}</Form.Text>
-          </Form.Group>
-          <Form.Group controlId="formDistance" className="distanceRow mt-3">
-            <Form.Label>
-              <DirectionsWalkIcon />
-              Distance from the location (in meters)
-            </Form.Label>
+          </div>
+          <Form.Text className="text-muted">{status}</Form.Text>
+
+          <div className="distanceRow mt-2">
+            <div>
+              <img
+                src="/images/walker.svg"
+                alt="HSL walker Logo"
+                width={20}
+                height={20}
+              />
+            </div>
+            <div className="ml-2">Distance (in meters)</div>
             <DropdownButton
-              variant="outline-secondary"
+              size="sm"
               title={`${distance} meters`}
               onSelect={(e: string | null) => setDistance(Number(e))}
+              variant="light"
+              className="filterHeader"
             >
               <Dropdown.Item key={200} eventKey={"200"}>
                 200 meters
@@ -140,7 +140,7 @@ function MainPage() {
                 1 km
               </Dropdown.Item>
             </DropdownButton>
-          </Form.Group>
+          </div>
         </Form>
       </div>
       <div className="content table-responsive m-3">

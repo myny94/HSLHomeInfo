@@ -1,0 +1,9 @@
+.navigationRow {
+    display: flex;
+    gap: 10px;
+    font-weight: lighter;
+}
+
+.backButton {
+    
+}

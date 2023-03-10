@@ -5,11 +5,19 @@
   gap: 10px;
 }
 
-.locationRow,
-.distanceRow {
-  flex-wrap: wrap;
+.filterHeader {
+  font-weight: lighter;
 }
 
-.locationRow > div {
-  flex: 1 2;
+.locationRowTitle {
+  display: flex;
+}
+
+.locationTitle {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+.locationAutocomplete {
+  flex: 4;
 }
