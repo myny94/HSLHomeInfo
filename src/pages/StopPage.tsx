@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useSearchParams, useNavigate } from "react-router-dom";
 import StopDisplay from "../components/Stop";
 import { useGetStopByIdQuery } from "../generated/graphql";
 import { isDefined } from "../util";
@@ -9,6 +9,7 @@ function StopPage() {
   const [stopId, setStopId] = useState<string | undefined>();
   const [searchParams] = useSearchParams();
 
+  const navigate = useNavigate();
   useEffect(() => {
     var idParam = searchParams.get("id");
     if (idParam) {
@@ -26,7 +27,7 @@ function StopPage() {
   return (
     <div>
       <div className="m-3 navigationRow">
-        <div className="backButton">
+        <div className="backButton" onClick={() => navigate(-1)}>
           <img
             src="/images/backButton.svg"
             alt="HSL walker Logo"
