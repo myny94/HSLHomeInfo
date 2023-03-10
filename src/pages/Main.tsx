@@ -143,7 +143,7 @@ function MainPage() {
           </div>
         </Form>
       </div>
-      <div className="content table-responsive m-3">
+      <div className="content table-responsive">
         {stopsLoading ? (
           <p>Loading ...</p>
         ) : (

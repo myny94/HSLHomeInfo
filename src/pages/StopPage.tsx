@@ -41,7 +41,7 @@ function StopPage() {
         <p>Loading ...</p>
       ) : (
         stopData && (
-          <div>
+          <div className="m-3">
             <StopDisplay stopQuery={stopData} />
           </div>
         )

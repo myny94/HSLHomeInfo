@@ -16,10 +16,10 @@ function StopDisplay(props: StopProps) {
   }
 
   return (
-    <div className="m-3">
+    <div>
       <div className="my-2">
         <h3>{props.stopQuery.stop?.name}</h3>
-        <div className="stopDeecription">
+        <div className="stopDescription">
           <div>{props?.stopQuery.stop?.desc}</div>
           <div className="chip">{props?.stopQuery.stop?.code}</div>
           <img
@@ -42,24 +42,26 @@ function StopDisplay(props: StopProps) {
             props.stopQuery.stop?.stoptimesWithoutPatterns?.map(
               (stopTime, i) => (
                 <tr key={i}>
-                  <td className="stopRow">
-                    <img
-                      src={RouteModeToIconName(stopTime?.trip?.route.mode)}
-                      alt="HSL transportation Logo"
-                      width={20}
-                      height={20}
-                    />
-                    <div
-                      className={`shortName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
-                    >
-                      {stopTime?.trip?.route.shortName}
-                    </div>
-                    <div
-                      className={`longName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
-                    >
-                      {stopTime?.headsign
-                        ? `  (${stopTime?.headsign})`
-                        : `  (${stopTime?.trip?.route.longName})`}
+                  <td>
+                    <div className="stopRow">
+                      <img
+                        src={RouteModeToIconName(stopTime?.trip?.route.mode)}
+                        alt="HSL transportation Logo"
+                        width={20}
+                        height={20}
+                      />
+                      <div
+                        className={`shortName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
+                      >
+                        {stopTime?.trip?.route.shortName}
+                      </div>
+                      <div
+                        className={`longName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
+                      >
+                        {stopTime?.headsign
+                          ? `  (${stopTime?.headsign})`
+                          : `  (${stopTime?.trip?.route.longName})`}
+                      </div>
                     </div>
                   </td>
                   <td>
