@@ -21,7 +21,7 @@ query getStops {
   }
 }
 
-query GetStopById($stopId: String!) {
+query GetStopById($stopId: String!, $numberOfDepartures: Int) {
   stop(id: $stopId) {
     name
     gtfsId
@@ -30,7 +30,7 @@ query GetStopById($stopId: String!) {
     desc
     zoneId
     code
-    stoptimesWithoutPatterns {
+    stoptimesWithoutPatterns(numberOfDepartures: $numberOfDepartures) {
       scheduledArrival
       scheduledDeparture
       serviceDay

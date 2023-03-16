@@ -1460,6 +1460,7 @@ export type GetStopsQuery = { __typename?: 'QueryType', stops?: Array<{ __typena
 
 export type GetStopByIdQueryVariables = Exact<{
   stopId: Scalars['String'];
+  numberOfDepartures?: InputMaybe<Scalars['Int']>;
 }>;
 
 
@@ -1557,7 +1558,7 @@ export type GetStopsQueryHookResult = ReturnType<typeof useGetStopsQuery>;
 export type GetStopsLazyQueryHookResult = ReturnType<typeof useGetStopsLazyQuery>;
 export type GetStopsQueryResult = Apollo.QueryResult<GetStopsQuery, GetStopsQueryVariables>;
 export const GetStopByIdDocument = gql`
-    query GetStopById($stopId: String!) {
+    query GetStopById($stopId: String!, $numberOfDepartures: Int) {
   stop(id: $stopId) {
     name
     gtfsId
@@ -1566,7 +1567,7 @@ export const GetStopByIdDocument = gql`
     desc
     zoneId
     code
-    stoptimesWithoutPatterns {
+    stoptimesWithoutPatterns(numberOfDepartures: $numberOfDepartures) {
       scheduledArrival
       scheduledDeparture
       serviceDay
@@ -1597,6 +1598,7 @@ export const GetStopByIdDocument = gql`
  * const { data, loading, error } = useGetStopByIdQuery({
  *   variables: {
  *      stopId: // value for 'stopId'
+ *      numberOfDepartures: // value for 'numberOfDepartures'
  *   },
  * });
  */
