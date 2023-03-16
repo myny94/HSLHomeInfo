@@ -114,21 +114,21 @@ function MainPage() {
           <Form.Text className="text-muted">{status}</Form.Text>
 
           <div className="distanceRow mt-2">
-            <div>
+            <div className="distanceTitle">
               <img
                 src="/images/walker.svg"
                 alt="HSL walker Logo"
                 width={20}
                 height={20}
               />
+              <div>Distance</div>
             </div>
-            <div className="ml-2">Distance (in meters)</div>
+            <div className="locationAutocomplete">
             <DropdownButton
-              size="sm"
               title={`${distance} meters`}
               onSelect={(e: string | null) => setDistance(Number(e))}
               variant="light"
-              className="filterHeader"
+              className="distanceSelector"
             >
               <Dropdown.Item key={200} eventKey={"200"}>
                 200 meters
@@ -139,7 +139,8 @@ function MainPage() {
               <Dropdown.Item key={1000} eventKey={"1000"}>
                 1 km
               </Dropdown.Item>
-            </DropdownButton>
+            </DropdownButton> 
+            </div>
           </div>
         </Form>
       </div>

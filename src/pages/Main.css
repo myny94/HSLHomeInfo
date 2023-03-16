@@ -1,23 +1,44 @@
-.rowDisplay,
-.locationRow,
-.distanceRow {
+.rowDisplay {
   display: flex;
   gap: 10px;
+}
+
+.distanceRow,
+.locationRow {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 4fr;
 }
 
 .filterHeader {
   font-weight: lighter;
 }
 
-.locationRowTitle {
+.distanceTitle {
   display: flex;
 }
 
-.locationTitle {
+.locationTitle, .distanceTitle {
   display: flex;
   gap: 10px;
-  flex: 1;
 }
-.locationAutocomplete {
-  flex: 4;
+
+.distanceSelector > button {
+  transition: all 100ms;
+  background-color: hsl(0, 0%, 100%);
+  color: black;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+}
+
+.distanceSelector > button:hover {
+  background-color: var(--gray);
+  color: black;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
 }
