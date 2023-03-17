@@ -43,6 +43,10 @@
     font-weight: bold;
 }
 
+.googleIcon {
+  cursor: pointer;
+}
+
 @media (max-width: 479px) {
     .stopArrivalTime {
         margin-left: auto;

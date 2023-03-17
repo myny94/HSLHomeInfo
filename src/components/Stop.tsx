@@ -28,6 +28,20 @@ function StopDisplay(props: StopProps) {
             width={20}
             height={20}
           />
+          <img
+            src="/images/googlemap.svg"
+            className="googleIcon"
+            alt="Google map Logo"
+            width={23}
+            height={23}
+            onClick={() =>
+              window.open(
+                `http://maps.google.com/maps?z=12&t=m&q=loc:${props.stopQuery.stop?.lat}+${props.stopQuery.stop?.lon}`,
+                "_blank",
+                "noreferrer"
+              )
+            }
+          />
         </div>
       </div>
       <Table size="sm">
