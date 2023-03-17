@@ -22,12 +22,16 @@ function StopDisplay(props: StopProps) {
         <div className="stopDescription">
           <div>{props?.stopQuery.stop?.desc}</div>
           <div className="chip">{props?.stopQuery.stop?.code}</div>
-          <img
-            src={stringToIconName(props?.stopQuery.stop?.zoneId?.toLowerCase())}
-            alt="HSL zone Logo"
-            width={20}
-            height={20}
-          />
+          {props?.stopQuery.stop?.zoneId !== "Ei HSL" && (
+            <img
+              src={stringToIconName(
+                props?.stopQuery.stop?.zoneId?.toLowerCase()
+              )}
+              alt="HSL zone Logo"
+              width={20}
+              height={20}
+            />
+          )}
           <img
             src="/images/googlemap.svg"
             className="googleIcon"
