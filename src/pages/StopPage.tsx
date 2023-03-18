@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import StopDisplay from "../components/Stop";
 import { useGetStopByIdQuery } from "../generated/graphql";
 import { isDefined } from "../util";
@@ -20,7 +20,7 @@ function StopPage() {
   const { data: stopData, loading: stopLoading } = useGetStopByIdQuery({
     variables: {
       stopId: stopId!,
-      numberOfDepartures: 15
+      numberOfDepartures: 15,
     },
     skip: !isDefined(stopId),
   });
