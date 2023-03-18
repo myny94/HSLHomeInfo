@@ -35,4 +35,9 @@ jobs:
       - name: Deploy to S3
         run: |
           aws s3 sync ./build/ s3://${{ env.BUCKET_NAME }} --delete
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
+          PATHS: "/*"
       - run: echo "🍏 This job's status is ${{ job.status }}."
