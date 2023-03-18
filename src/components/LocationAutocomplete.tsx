@@ -50,7 +50,7 @@ function LocationAutocomplete(props: LocationProps) {
       fetch(
         `${url}?` +
           new URLSearchParams({
-            text: searchTerm,
+            text: debouncedVal,
             layers: "address",
             "boundary.rect.min_lat": MIN_LATITUDE,
             "boundary.rect.max_lat": MAX_LATITUDE,

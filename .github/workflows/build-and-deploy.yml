@@ -1,5 +1,5 @@
 name: GitHub Actions - build and deploy React App
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: Build and deploy static website to AWS S3
 on:
   push:
     branches:

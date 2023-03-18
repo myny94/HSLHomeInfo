@@ -86,8 +86,6 @@ function MainPage() {
       });
     } else if (option.type === "mylocation") {
       getCurrentUserLocation();
-    } else {
-      const _: never = option;
     }
   };
 
