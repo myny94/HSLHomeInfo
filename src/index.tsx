@@ -12,6 +12,9 @@ const root = ReactDOM.createRoot(
 const client = new ApolloClient({
   uri: "https://api.digitransit.fi/routing/v1/routers/hsl/index/graphql",
   cache: new InMemoryCache(),
+  headers: {
+    "digitransit-subscription-key": "0655993151044b858b8850da50c4c65b"
+  }
 });
 
 root.render(

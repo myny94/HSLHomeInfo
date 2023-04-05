@@ -22,15 +22,15 @@ function useDebounce<T>(value: T, delay?: number): T {
 
 type AddressOption = {
   type: "address";
-  label: string
-  value: string
+  label: string;
+  value: string;
   coordinate: Coordinate;
 };
 
 type MyLocationOption = {
   type: "mylocation";
-  label: string
-  value: string
+  label: string;
+  value: string;
 };
 
 export type Option = AddressOption | MyLocationOption;
@@ -56,6 +56,7 @@ function LocationAutocomplete(props: LocationProps) {
             "boundary.rect.max_lat": MAX_LATITUDE,
             "boundary.rect.min_lon": MIN_LONGITUDE,
             "boundary.rect.max_lon": MAX_LONGITUDE,
+            "digitransit-subscription-key": "0655993151044b858b8850da50c4c65b",
           })
       )
         .then((res) => res.json())
@@ -83,17 +84,22 @@ function LocationAutocomplete(props: LocationProps) {
       <Select
         onChange={(e) => handleSelectionChange(e)}
         onInputChange={(e) => setSearchTerm(e)}
-        options={
-          [
-            { type: 'mylocation' as const, value: 'mylocation', label: 'My current location' },
+        options={[
+          {
+            type: "mylocation" as const,
+            value: "mylocation",
+            label: "My current location",
+          },
           ...(options?.features.map((option) => ({
-            type: 'address' as const,
+            type: "address" as const,
             label: option.properties.label,
             value: option.properties.id,
-            coordinate: { longitude: option.geometry.coordinates[0], latitude: option.geometry.coordinates[1] },
-          })) ?? [])
-        ]
-        }
+            coordinate: {
+              longitude: option.geometry.coordinates[0],
+              latitude: option.geometry.coordinates[1],
+            },
+          })) ?? []),
+        ]}
       />
     </div>
   );
