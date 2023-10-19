@@ -17,7 +17,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
       - name: Use Node.js 18.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: 18.x
       - name: Configure AWS Credentials
@@ -26,15 +26,23 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-      - name: npm install
+      - name: Install npm packages
         run: |
-          npm install
-      - name: production build
+          npm ci
+      - name: npm audit and lint files
+        run: | 
+          npm audit --audit-level critical
+          npm run lint
+        env:
+          CI: true
+      - name: Code style check
+        run: npm run prettier
+      - name: Production build
         run: |
           npm run build
       - name: Deploy to S3
         run: |
-          aws s3 sync ./build/ s3://${{ env.BUCKET_NAME }} --delete
+          aws s3 sync ./dist/ s3://${{ env.BUCKET_NAME }} --delete
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
