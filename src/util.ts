@@ -1,45 +1,39 @@
+function zeroPad(n: number) {
+  return n < 10 ? `0${n}` : n
+}
+
 export const timeConverter = (UNIX_timestamp: number) => {
-  var a = new Date(UNIX_timestamp * 1000);
-  var today = new Date().getDate();
-  var date = a.getDate();
-  var hour = pad(a.getHours());
-  var min = pad(a.getMinutes());
+  const a = new Date(UNIX_timestamp * 1000)
+  const today = new Date().getDate()
+  const date = a.getDate()
+  const hour = zeroPad(a.getHours())
+  const min = zeroPad(a.getMinutes())
   if (today === date) {
-    return ["today", `${hour}:${min}`];
-  } else {
-    return ["tomorrow", `${hour}:${min}`];
+    return ['today', `${hour}:${min}`]
   }
-};
+  return ['tomorrow', `${hour}:${min}`]
+}
 
 export const remainingTimeConverter = (UNIX_timestamp: number) => {
-  var currentTime = Math.floor(Date.now() / 1000);
-  var TimeDiff = UNIX_timestamp - currentTime;
-  TimeDiff = Math.floor(TimeDiff / 60);
-  var min = TimeDiff % 60;
-  TimeDiff = Math.floor(TimeDiff / 60);
-  var hour = TimeDiff % 24;
-  var time =
-    hour > 0
-      ? ""
-      : min > 0
-      ? min < 50
-        ? `${min} min`
-        : ""
-      : `${Math.abs(min)} min ago`;
-  return time;
-};
+  const currentTime = Math.floor(Date.now() / 1000)
+  const TimeDiff = Math.floor((UNIX_timestamp - currentTime) / 60)
+  const min = TimeDiff % 60
+  const hour = Math.floor(TimeDiff / 60) % 24
+
+  if (hour === 0) {
+    if (min > 0 && min < 50) {
+      return `${min} min`
+    }
+    if (min < 0) {
+      return `${Math.abs(min)} min ago`
+    }
+  }
+  return ''
+}
 
 // Type guard
-export const isDefined = <T>(variable: T | undefined | null): variable is T => {
-  return variable !== null && variable !== undefined;
-};
+export const isDefined = <T>(variable: T | undefined | null): variable is T =>
+  variable !== null && variable !== undefined
 
-export const stringToIconName = (string: string | null | undefined) => {
-  if (isDefined(string)) {
-    return `/images/${string.toLowerCase()}Icon.svg`;
-  }
-};
-
-function pad(n: number) {
-  return n < 10 ? "0" + n : n;
-}
+export const stringToIconName = (string: string) =>
+  `/images/${string.toLowerCase()}Icon.svg`

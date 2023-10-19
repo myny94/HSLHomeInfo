@@ -1,32 +1,36 @@
-import { GetStopByIdQuery } from "../generated/graphql";
-import { remainingTimeConverter, timeConverter } from "../util";
-import { Table } from "react-bootstrap";
-import { stringToIconName } from "../util";
-import "./Stop.css";
+import { Table } from 'react-bootstrap'
+import { GetStopByIdQuery } from '../generated/graphql'
+import {
+  remainingTimeConverter,
+  timeConverter,
+  stringToIconName,
+} from '../util'
+import './Stop.css'
 
 type StopProps = {
-  stopQuery: GetStopByIdQuery;
-};
+  stopQuery: GetStopByIdQuery
+}
 
 function StopDisplay(props: StopProps) {
   function RouteModeToIconName(mode: string | null | undefined) {
-    if (mode!) {
-      return `/images/${mode.toLowerCase()}Icon.svg`;
+    if (mode) {
+      return `/images/${mode.toLowerCase()}Icon.svg`
     }
   }
+
+  const { stopQuery } = props
+  const zoneId = stopQuery.stop?.zoneId
 
   return (
     <div>
       <div className="my-2">
-        <h3>{props.stopQuery.stop?.name}</h3>
+        <h3>{stopQuery.stop?.name}</h3>
         <div className="stopDescription">
-          <div>{props?.stopQuery.stop?.desc}</div>
-          <div className="chip">{props?.stopQuery.stop?.code}</div>
-          {props?.stopQuery.stop?.zoneId !== "Ei HSL" && (
+          <div>{stopQuery.stop?.desc}</div>
+          <div className="chip">{stopQuery.stop?.code}</div>
+          {zoneId && zoneId !== 'Ei HSL' && (
             <img
-              src={stringToIconName(
-                props?.stopQuery.stop?.zoneId?.toLowerCase()
-              )}
+              src={stringToIconName(zoneId.toLowerCase())}
               alt="HSL zone Logo"
               width={20}
               height={20}
@@ -40,9 +44,9 @@ function StopDisplay(props: StopProps) {
             height={23}
             onClick={() =>
               window.open(
-                `http://maps.google.com/maps?z=12&t=m&q=loc:${props.stopQuery.stop?.lat}+${props.stopQuery.stop?.lon}`,
-                "_blank",
-                "noreferrer"
+                `http://maps.google.com/maps?z=12&t=m&q=loc:${stopQuery.stop?.lat}+${stopQuery.stop?.lon}`,
+                '_blank',
+                'noreferrer'
               )
             }
           />
@@ -56,55 +60,60 @@ function StopDisplay(props: StopProps) {
           </tr>
         </thead>
         <tbody className="stopTableBody">
-          {props &&
-            props.stopQuery.stop?.stoptimesWithoutPatterns?.map(
-              (stopTime, i) => (
-                <tr key={i}>
-                  <td>
-                    <div className="stopRow">
-                      <img
-                        src={RouteModeToIconName(stopTime?.trip?.route.mode)}
-                        alt="HSL transportation Logo"
-                        width={20}
-                        height={20}
-                      />
-                      <div
-                        className={`shortName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
-                      >
-                        {stopTime?.trip?.route.shortName}
-                      </div>
-                      <div
-                        className={`longName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
-                      >
-                        {stopTime?.headsign
-                          ? `  (${stopTime?.headsign})`
-                          : `  (${stopTime?.trip?.route.longName})`}
-                      </div>
+          {stopQuery.stop?.stoptimesWithoutPatterns?.map((stopTime, i) => {
+            const serviceDay = stopTime?.serviceDay
+            const scheduledArrival = stopTime?.scheduledArrival
+            return (
+              <tr key={i}>
+                <td>
+                  <div className="stopRow">
+                    <img
+                      src={RouteModeToIconName(stopTime?.trip?.route.mode)}
+                      alt="HSL transportation Logo"
+                      width={20}
+                      height={20}
+                    />
+                    <div
+                      className={`shortName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
+                    >
+                      {stopTime?.trip?.route.shortName}
                     </div>
-                  </td>
-                  <td>
-                    <div className="stopRow">
+                    <div
+                      className={`longName ${stopTime?.trip?.route.mode?.toLowerCase()}`}
+                    >
+                      {stopTime?.headsign
+                        ? `  (${stopTime?.headsign})`
+                        : `  (${stopTime?.trip?.route.longName})`}
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div className="stopRow">
+                    {serviceDay && scheduledArrival && (
                       <span className="stopRemainingTime">
                         {remainingTimeConverter(
-                          stopTime?.serviceDay + stopTime?.scheduledArrival
+                          stopTime.serviceDay + stopTime.scheduledArrival
                         )}
                       </span>
+                    )}
+                    {serviceDay && scheduledArrival && (
                       <span className="stopArrivalTime">
                         {
                           timeConverter(
-                            stopTime?.serviceDay + stopTime?.scheduledArrival
+                            stopTime.serviceDay + stopTime.scheduledArrival
                           )[1]
                         }
                       </span>
-                    </div>
-                  </td>
-                </tr>
-              )
-            )}
+                    )}
+                  </div>
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </Table>
     </div>
-  );
+  )
 }
 
-export default StopDisplay;
+export default StopDisplay

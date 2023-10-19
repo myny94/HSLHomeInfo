@@ -1,39 +1,39 @@
-import { useEffect, useState } from "react";
-import { useGetStopsByRadiusQuery } from "../generated/graphql";
-import ArrivalTimeDisplay from "../components/ArrivalTimes";
-import LocationAutocomplete, {
-  Option,
-} from "../components/LocationAutocomplete";
-import { Dropdown, DropdownButton } from "react-bootstrap";
+import { useEffect, useState } from 'react'
+import { Dropdown, DropdownButton } from 'react-bootstrap'
 import {
   createSearchParams,
   useNavigate,
   useSearchParams,
-} from "react-router-dom";
-import { isDefined } from "../util";
-import Form from "react-bootstrap/Form";
-import "./Main.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+} from 'react-router-dom'
+import Form from 'react-bootstrap/Form'
+import { useGetStopsByRadiusQuery } from '../generated/graphql'
+import ArrivalTimeDisplay from '../components/ArrivalTimes'
+import LocationAutocomplete, {
+  Option,
+} from '../components/LocationAutocomplete'
+import { isDefined } from '../util'
+import './Main.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
-const DEFAULT_DISTANCE = 500;
-const DEFAULT_POLLINTERVAL = 60000;
+const DEFAULT_DISTANCE = 500
+const DEFAULT_POLLINTERVAL = 60000
 
 function MainPage() {
-  const [latitude, setLatitude] = useState<number | undefined>();
-  const [longitude, setLongitude] = useState<number | undefined>();
-  const [distance, setDistance] = useState<number>(DEFAULT_DISTANCE);
-  const [status, setStatus] = useState<string | undefined>();
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
+  const [latitude, setLatitude] = useState<number | undefined>()
+  const [longitude, setLongitude] = useState<number | undefined>()
+  const [distance, setDistance] = useState<number>(DEFAULT_DISTANCE)
+  const [status, setStatus] = useState<string | undefined>()
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    var latitudeParam = searchParams.get("lat");
-    var longitudeParam = searchParams.get("lon");
+    const latitudeParam = searchParams.get('lat')
+    const longitudeParam = searchParams.get('lon')
     if (latitudeParam && longitudeParam) {
-      setLatitude(Number(latitudeParam));
-      setLongitude(Number(longitudeParam));
+      setLatitude(Number(latitudeParam))
+      setLongitude(Number(longitudeParam))
     }
-  }, [searchParams]);
+  }, [searchParams])
 
   const { data: stopsData, loading: stopsLoading } = useGetStopsByRadiusQuery({
     variables: {
@@ -43,51 +43,51 @@ function MainPage() {
     },
     pollInterval: DEFAULT_POLLINTERVAL,
     skip: !isDefined(latitude) || !isDefined(longitude),
-  });
+  })
 
   const getCurrentUserLocation = () => {
     if (!navigator.geolocation) {
-      setStatus("Geolocation is not supported by your browser");
+      setStatus('Geolocation is not supported by your browser')
     } else {
-      setStatus("Locating...");
+      setStatus('Locating...')
       navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLatitude(position.coords.latitude);
-          setLongitude(position.coords.longitude);
-          setStatus(undefined);
+        position => {
+          setLatitude(position.coords.latitude)
+          setLongitude(position.coords.longitude)
+          setStatus(undefined)
           navigate({
-            pathname: "/schedule",
+            pathname: '/schedule',
             search: `?${createSearchParams({
               lat: position.coords.latitude.toString(),
               lon: position.coords.longitude.toString(),
             })}`,
-          });
+          })
         },
         () => {
           setStatus(
-            "Unable to retrieve your location. Make sure to allow location in your browser."
-          );
+            'Unable to retrieve your location. Make sure to allow location in your browser.'
+          )
         }
-      );
+      )
     }
-  };
+  }
 
   const UpdateCoordinate = async (option: Option) => {
-    if (option.type === "address") {
-      setLatitude(option.coordinate.latitude);
-      setLongitude(option.coordinate.longitude);
-      setStatus(undefined);
+    if (option.type === 'address') {
+      setLatitude(option.coordinate.latitude)
+      setLongitude(option.coordinate.longitude)
+      setStatus(undefined)
       navigate({
-        pathname: "/schedule",
+        pathname: '/schedule',
         search: `?${createSearchParams({
           lat: option.coordinate.latitude.toString(),
           lon: option.coordinate.longitude.toString(),
         })}`,
-      });
-    } else if (option.type === "mylocation") {
-      getCurrentUserLocation();
+      })
+    } else if (option.type === 'mylocation') {
+      getCurrentUserLocation()
     }
-  };
+  }
 
   return (
     <div>
@@ -122,22 +122,22 @@ function MainPage() {
               <div>Distance</div>
             </div>
             <div className="locationAutocomplete">
-            <DropdownButton
-              title={`${distance} meters`}
-              onSelect={(e: string | null) => setDistance(Number(e))}
-              variant="light"
-              className="distanceSelector"
-            >
-              <Dropdown.Item key={200} eventKey={"200"}>
-                200 meters
-              </Dropdown.Item>
-              <Dropdown.Item key={500} eventKey={"500"}>
-                500 meters
-              </Dropdown.Item>
-              <Dropdown.Item key={1000} eventKey={"1000"}>
-                1 km
-              </Dropdown.Item>
-            </DropdownButton> 
+              <DropdownButton
+                title={`${distance} meters`}
+                onSelect={(e: string | null) => setDistance(Number(e))}
+                variant="light"
+                className="distanceSelector"
+              >
+                <Dropdown.Item key={200} eventKey={'200'}>
+                  200 meters
+                </Dropdown.Item>
+                <Dropdown.Item key={500} eventKey={'500'}>
+                  500 meters
+                </Dropdown.Item>
+                <Dropdown.Item key={1000} eventKey={'1000'}>
+                  1 km
+                </Dropdown.Item>
+              </DropdownButton>
             </div>
           </div>
         </Form>
@@ -155,7 +155,7 @@ function MainPage() {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default MainPage;
+export default MainPage

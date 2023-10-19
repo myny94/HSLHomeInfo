@@ -2,6 +2,7 @@
   cursor: pointer;
   color: #666666;
   font-weight: 500;
+  text-decoration: underline;
 }
 
 .scheduleTableHead, .shortName, .arrivalTime {

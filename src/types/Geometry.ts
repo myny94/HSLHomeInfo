@@ -1,4 +1,4 @@
 export type Geometry = {
-    type: string;
-    coordinates: [number, number];
+  type: string
+  coordinates: [number, number]
 }
